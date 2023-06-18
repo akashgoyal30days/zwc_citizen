@@ -15,6 +15,7 @@ class Main extends StatelessWidget {
       DeviceOrientation.portraitDown,
     ]);
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.green),
       getPages: ZWCRoutes.getPages,
     );

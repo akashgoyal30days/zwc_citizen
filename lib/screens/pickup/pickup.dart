@@ -33,7 +33,7 @@ class _PickUpRequestState extends State<PickUpRequest> {
   }
 
   @override
-  Widget build(BuildContext context) {
+Widget build(BuildContext context) {
     // return MyListPage();
     return GetBuilder<PickupController>(builder: (controller) {
       return Scaffold(

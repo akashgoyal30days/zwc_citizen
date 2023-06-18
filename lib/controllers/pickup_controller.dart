@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -33,6 +34,7 @@ class PickupController extends GetxController {
 
     var response = await APIClient.post(URLS.pastRequests);
     var body = json.decode(response.body);
+    log(body.toString());
 
     if (response.statusCode != 200) {
       errorText = "unkown Error";
@@ -123,7 +125,7 @@ class PickRequestModel {
       lcb,
       lct;
   final int pickRequestsType;
-  final DateTime slotDateFrom,
+  final String slotDateFrom,
       slotDateTo,
       acceptanceDateTime,
       requestDateTime,
@@ -131,12 +133,12 @@ class PickRequestModel {
       rejectionDateTime;
   PickRequestModel(data)
       : id = data["id"],
-        requestDateTime = DateTime.parse(data["request_date_time"]),
-        slotDateFrom = DateTime.parse(data["slot_date_from"]),
-        slotDateTo = DateTime.parse(data["slot_date_to"]),
-        acceptanceDateTime = DateTime.parse(data["acceptance_date_time"]),
-        pickupDateTime = DateTime.parse(data["pickup_date_time"]),
-        rejectionDateTime = DateTime.parse(data["rejection_date_time"]),
+        requestDateTime = (data["request_date_time"]),
+        slotDateFrom = (data["slot_date_from"]),
+        slotDateTo = (data["slot_date_to"]),
+        acceptanceDateTime = (data["acceptance_date_time"]),
+        pickupDateTime = (data["pickup_date_time"]),
+        rejectionDateTime = (data["rejection_date_time"]),
         pickRequestsType = int.parse(data["request_status"] ?? "0"),
         requestImage = data["request_image"]?.toString() ?? "",
         approxWeight = data["approx_weight"]?.toString() ?? "",
