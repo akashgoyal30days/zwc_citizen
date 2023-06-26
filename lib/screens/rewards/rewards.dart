@@ -1,9 +1,15 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:zwc/api/api_client.dart';
+import 'package:zwc/api/urls.dart';
 import 'package:zwc/controllers/rewards_controller.dart.dart';
+import 'package:zwc/screens/rewards/redeemhistiry.dart';
 import 'package:zwc/widgets/transaction_widget.dart';
 
 import 'deposits.dart';
@@ -17,13 +23,111 @@ class RewardsScreen extends StatefulWidget {
 
 class _RewardsScreenState extends State<RewardsScreen> {
   DateTimeRange dateRange = DateTimeRange(
-      start: DateTime(2023, DateTime.now().month, DateTime.now().day - 14),
-      end: DateTime.now());
+    start: DateTime(2023, DateTime.now().month, DateTime.now().day - 14),
+    end: DateTime(2023, DateTime.now().month, DateTime.now().day + 1),
+  );
+  final reedempointscontroller = TextEditingController();
 
   @override
   void initState() {
     Get.put<RewardsController>(RewardsController(dateRange));
     super.initState();
+  }
+
+  Future<bool?> makeredeemrequest(String? amount) async {
+    var response = await APIClient.post(URLS.makereedemrequest,
+        body: {"amount": amount.toString()});
+    var body = json.decode(response.body);
+    if (response.statusCode == 200) {
+      log(body.toString());
+      if (body["status"].toString() == "true") {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    return null;
+  }
+
+  redeempointspopup(
+    BuildContext context,
+  ) {
+    showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+            padding: EdgeInsets.all(16.0),
+            child: Padding(
+              padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextField(
+                    keyboardType: TextInputType.number,
+                    controller: reedempointscontroller,
+                    decoration: InputDecoration(
+                      hintText: 'Enter Points To Redeem',
+                      labelText: 'Enter Redeem Points',
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  SizedBox(height: 16.0),
+                  Container(
+                    width: double.infinity,
+                    margin: EdgeInsets.symmetric(horizontal: 5),
+                    height: 50,
+                    child: TextButton(
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.green),
+                        foregroundColor:
+                            MaterialStateProperty.all(Colors.white),
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                        makeredeemrequest(
+                                reedempointscontroller.text.toString())
+                            .then((value) => {
+                                  if (value == true)
+                                    {
+                                      Get.showSnackbar(const GetSnackBar(
+                                        duration: Duration(seconds: 3),
+                                        backgroundColor: Colors.blue,
+                                        title: "Redeem Points",
+                                        message: "Request Sent Successfully",
+                                      )),
+                                      Get.delete<RewardsController>(),
+                                      Get.to(RewardsScreen())
+                                    }
+                                  else
+                                    {
+                                      Get.showSnackbar(const GetSnackBar(
+                                        duration: Duration(seconds: 3),
+                                        backgroundColor: Colors.red,
+                                        title: "Redeem Points",
+                                        message: "Error,Please Try Later",
+                                      ))
+                                    }
+                                });
+                      },
+                      child: const Text("Redeem Now"),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
   }
 
   @override
@@ -66,7 +170,11 @@ class _RewardsScreenState extends State<RewardsScreen> {
               ? NeverScrollableScrollPhysics()
               : null,
           children: [
-            const CurrentBalance(),
+            InkWell(
+                onTap: () {
+                  redeempointspopup(context);
+                },
+                child: const CurrentBalance()),
             if (controller.transactionLoading) const LinearProgressIndicator(),
             Padding(
               padding: const EdgeInsets.all(15.0),
@@ -262,8 +370,37 @@ class CurrentBalance extends StatelessWidget {
                               ],
                             ),
                           ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Text(
+                      "Tap to Reedem Points",
+                      style: GoogleFonts.montserrat(
+                        letterSpacing: 2,
+                        fontSize: 14,
+                        color: Colors.white,
+                      ),
+                    ),
                   ],
                 ),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Get.to(() => ReedemhistoryScreen());
+              },
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    "Redeem History",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  Icon(
+                    Icons.arrow_forward,
+                    size: 18,
+                  )
+                ],
               ),
             ),
             ElevatedButton(

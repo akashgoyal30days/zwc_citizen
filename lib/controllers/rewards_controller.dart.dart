@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zwc/api/api_client.dart';
 import 'package:zwc/api/urls.dart';
+import 'package:zwc/model/getallredeemrequestmodel.dart';
 
 class RewardsController extends GetxController {
   bool balanceLoading = false, transactionLoading = false;
@@ -13,6 +15,7 @@ class RewardsController extends GetxController {
   RewardsController(DateTimeRange timeRange) {
     getBalance();
     getTransactions(timeRange);
+    getallreedemrequests(timeRange);
   }
 
   getBalance() async {
@@ -54,6 +57,31 @@ class RewardsController extends GetxController {
     transactionLoading = false;
     update();
   }
+
+  bool showloading = false;
+  GetAllRedeemRequestModel? getallredeemrequestdata;
+  Future<GetAllRedeemRequestModel?> getallreedemrequests(
+      DateTimeRange dateTimeRange) async {
+    showloading = true;
+    update();
+
+    var response = await APIClient.post(URLS.getallreedemhistory, body: {
+      "from":
+          "${dateTimeRange.start.year}-${dateTimeRange.start.month}-${dateTimeRange.start.day}",
+      "to":
+          "${dateTimeRange.end.year}-${dateTimeRange.end.month}-${dateTimeRange.end.day}",
+    });
+    var body = json.decode(response.body);
+    if (response.statusCode == 200) {
+      getallredeemrequestdata = GetAllRedeemRequestModel.fromJson(body);
+      log(body.toString());
+      showloading = false;
+      update();
+    }
+    return getallredeemrequestdata;
+  }
+
+  
 }
 
 class TransactionModel {

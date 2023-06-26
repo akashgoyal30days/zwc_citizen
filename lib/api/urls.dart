@@ -1,6 +1,6 @@
 class URLS {
-  static const baseURL = r"https://api.zerowastecitizen.in/";
-  // static const baseURL = "https://backend.zerowastecitizen.in/";
+  // static const baseURL = "https://api.zerowastecitizen.in/";
+  static const baseURL = "https://backend.zerowastecitizen.in/";
 
   // registration URL
   static const registerCustomer = "public/user/register",
@@ -48,4 +48,6 @@ class URLS {
 
   //bank details
   static const updateBank = "public/userDetail/update_user_bank_details";
+  static const makereedemrequest = "public/userPassbook/make_redeem_request",
+      getallreedemhistory = "public/userPassbook/my_redeem_requests";
 }

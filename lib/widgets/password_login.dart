@@ -54,7 +54,7 @@ class _PasswordLoginState extends State<PasswordLogin> {
             CustomTextField(
               hint: "Phone Number",
               icon: Icons.phone,
-              inputType: TextInputType.phone,
+              inputType: TextInputType.name,
               error: phoneNumberError,
               enabled: !controller.showLoading,
               controller: widget.phoneNumberController,
