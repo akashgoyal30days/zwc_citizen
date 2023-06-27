@@ -86,7 +86,7 @@ class _DepositsScreenState extends State<ReedemhistoryScreen> {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5),
                                     side: BorderSide(color: Colors.green)),
-                                elevation: 5,
+                                elevation: 10,
                                 child: Container(
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
