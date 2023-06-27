@@ -36,7 +36,10 @@ class Datum {
     String? requestStatus;
     String? statusRemark;
     String? lcb;
-    DateTime? lct;
+    String? lct;
+    String? orderId;
+    String? utrNo;
+    String? tranStatus;
 
     Datum({
         this.id,
@@ -47,6 +50,9 @@ class Datum {
         this.statusRemark,
         this.lcb,
         this.lct,
+        this.orderId,
+        this.utrNo,
+        this.tranStatus,
     });
 
     factory Datum.fromJson(Map<String, dynamic> json) => Datum(
@@ -57,7 +63,10 @@ class Datum {
         requestStatus: json["request_status"],
         statusRemark: json["status_remark"],
         lcb: json["lcb"],
-        lct: json["lct"] == null ? null : DateTime.parse(json["lct"]),
+        lct: json["lct"] == null ? null :json["lct"],
+        orderId: json["order_id"],
+        utrNo: json["utr_no"],
+        tranStatus: json["tran_status"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -68,6 +77,11 @@ class Datum {
         "request_status": requestStatus,
         "status_remark": statusRemark,
         "lcb": lcb,
-        "lct": lct?.toIso8601String(),
+        "lct": lct,
+        "order_id": orderId,
+        "utr_no": utrNo,
+        "tran_status": tranStatus,
     };
 }
+
+

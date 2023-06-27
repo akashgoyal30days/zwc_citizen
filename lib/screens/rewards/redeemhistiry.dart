@@ -218,7 +218,14 @@ class _DepositsScreenState extends State<ReedemhistoryScreen> {
                                                                           .toString() ==
                                                                       "1"
                                                                   ? "Accepted"
-                                                                  : "Unknown",
+                                                                  : controller
+                                                                              .getallredeemrequestdata!
+                                                                              .data![index]
+                                                                              .requestStatus
+                                                                              .toString() ==
+                                                                          "2"
+                                                                      ? "Rejected"
+                                                                      : "Unknown",
                                                           style: TextStyle(
                                                             color: controller
                                                                         .getallredeemrequestdata!
@@ -238,8 +245,12 @@ class _DepositsScreenState extends State<ReedemhistoryScreen> {
                                                                         "1"
                                                                     ? Colors
                                                                         .blue
-                                                                    : Colors
-                                                                        .grey,
+                                                                    : controller.getallredeemrequestdata!.data![index].requestStatus.toString() ==
+                                                                            "2"
+                                                                        ? Colors
+                                                                            .red
+                                                                        : Colors
+                                                                            .grey,
                                                             fontWeight:
                                                                 FontWeight.bold,
                                                           )),
@@ -271,6 +282,76 @@ class _DepositsScreenState extends State<ReedemhistoryScreen> {
                                                               .getallredeemrequestdata!
                                                               .data![index]
                                                               .statusRemark
+                                                              .toString(),
+                                                          style:
+                                                              const TextStyle(
+                                                            color: Colors.grey,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          )),
+                                                    ])),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                              child: controller
+                                                          .getallredeemrequestdata!
+                                                          .data![index]
+                                                          .requestStatus !=
+                                                      "1"
+                                                  ? SizedBox()
+                                                  : RichText(
+                                                      text: TextSpan(children: [
+                                                      const TextSpan(
+                                                          text: "Order ID : ",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.grey)),
+                                                      TextSpan(
+                                                          text: controller
+                                                              .getallredeemrequestdata!
+                                                              .data![index]
+                                                              .orderId
+                                                              .toString(),
+                                                          style:
+                                                              const TextStyle(
+                                                            color: Colors.grey,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          )),
+                                                    ])),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                              child: controller
+                                                          .getallredeemrequestdata!
+                                                          .data![index]
+                                                          .requestStatus !=
+                                                      "1"
+                                                  ? SizedBox()
+                                                  : RichText(
+                                                      text: TextSpan(children: [
+                                                      const TextSpan(
+                                                          text: "UTR No : ",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.grey)),
+                                                      TextSpan(
+                                                          text: controller
+                                                              .getallredeemrequestdata!
+                                                              .data![index]
+                                                              .utrNo
                                                               .toString(),
                                                           style:
                                                               const TextStyle(
