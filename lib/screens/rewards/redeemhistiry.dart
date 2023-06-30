@@ -47,7 +47,7 @@ class _DepositsScreenState extends State<ReedemhistoryScreen> {
                 children: [
                   Expanded(
                     child: Text(
-                      "Your Reedems History",
+                      "Your Redeems History",
                       style: GoogleFonts.poppins(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
