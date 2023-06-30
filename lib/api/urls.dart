@@ -1,6 +1,6 @@
 class URLS {
-  // static const baseURL = "https://api.zerowastecitizen.in/";
-  static const baseURL = "https://backend.zerowastecitizen.in/";
+  static const baseURL = "https://api.zerowastecitizen.in/";
+  // static const baseURL = "https://backend.zerowastecitizen.in/";
 
   // registration URL
   static const registerCustomer = "public/user/register",
