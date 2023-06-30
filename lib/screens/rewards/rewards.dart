@@ -39,13 +39,7 @@ class _RewardsScreenState extends State<RewardsScreen> {
     var response = await APIClient.post(URLS.makereedemrequest,
         body: {"amount": amount.toString()});
     var body = json.decode(response.body);
-    log(body.toString());
-
-    if (response.statusCode == 200) {
-      ReedemRequestmodel.fromJson(body);
-    } else {
-      ReedemRequestmodel.fromJson(body);
-    }
+    reedemrequestresponse = await ReedemRequestmodel.fromJson(body);
     return reedemrequestresponse;
   }
 
@@ -98,7 +92,7 @@ class _RewardsScreenState extends State<RewardsScreen> {
                         makeredeemrequest(
                                 reedempointscontroller.text.toString())
                             .then((value) => {
-                                  if (value!.status == true)
+                                  if (value?.status.toString() == "true")
                                     {
                                       Get.showSnackbar(const GetSnackBar(
                                         duration: Duration(seconds: 3),
@@ -115,7 +109,7 @@ class _RewardsScreenState extends State<RewardsScreen> {
                                         duration: Duration(seconds: 3),
                                         backgroundColor: Colors.red,
                                         title: "Redeem Points",
-                                        message: value.message.toString(),
+                                        message: value?.message,
                                       ))
                                     }
                                 });
@@ -432,8 +426,8 @@ String reedemRequestmodelToJson(ReedemRequestmodel data) =>
     json.encode(data.toJson());
 
 class ReedemRequestmodel {
-  String? status;
-  String? message;
+  dynamic status;
+  dynamic message;
 
   ReedemRequestmodel({
     this.status,
