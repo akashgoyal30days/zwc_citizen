@@ -34,19 +34,19 @@ class _RewardsScreenState extends State<RewardsScreen> {
     super.initState();
   }
 
-  Future<bool?> makeredeemrequest(String? amount) async {
+  ReedemRequestmodel? reedemrequestresponse;
+  Future<ReedemRequestmodel?> makeredeemrequest(String? amount) async {
     var response = await APIClient.post(URLS.makereedemrequest,
         body: {"amount": amount.toString()});
     var body = json.decode(response.body);
+    log(body.toString());
+
     if (response.statusCode == 200) {
-      log(body.toString());
-      if (body["status"].toString() == "true") {
-        return true;
-      } else {
-        return false;
-      }
+      ReedemRequestmodel.fromJson(body);
+    } else {
+      ReedemRequestmodel.fromJson(body);
     }
-    return null;
+    return reedemrequestresponse;
   }
 
   redeempointspopup(
@@ -98,7 +98,7 @@ class _RewardsScreenState extends State<RewardsScreen> {
                         makeredeemrequest(
                                 reedempointscontroller.text.toString())
                             .then((value) => {
-                                  if (value == true)
+                                  if (value!.status == true)
                                     {
                                       Get.showSnackbar(const GetSnackBar(
                                         duration: Duration(seconds: 3),
@@ -111,11 +111,11 @@ class _RewardsScreenState extends State<RewardsScreen> {
                                     }
                                   else
                                     {
-                                      Get.showSnackbar(const GetSnackBar(
+                                      Get.showSnackbar(GetSnackBar(
                                         duration: Duration(seconds: 3),
                                         backgroundColor: Colors.red,
                                         title: "Redeem Points",
-                                        message: "Error,Please Try Later",
+                                        message: value.message.toString(),
                                       ))
                                     }
                                 });
@@ -423,4 +423,31 @@ class CurrentBalance extends StatelessWidget {
       );
     });
   }
+}
+
+ReedemRequestmodel reedemRequestmodelFromJson(String str) =>
+    ReedemRequestmodel.fromJson(json.decode(str));
+
+String reedemRequestmodelToJson(ReedemRequestmodel data) =>
+    json.encode(data.toJson());
+
+class ReedemRequestmodel {
+  String? status;
+  String? message;
+
+  ReedemRequestmodel({
+    this.status,
+    this.message,
+  });
+
+  factory ReedemRequestmodel.fromJson(Map<String, dynamic> json) =>
+      ReedemRequestmodel(
+        status: json["status"],
+        message: json["message"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "status": status,
+        "message": message,
+      };
 }
