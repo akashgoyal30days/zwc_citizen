@@ -360,6 +360,130 @@ class ConnectWithUS extends StatelessWidget {
                 ],
               ),
               Divider(),
+              SizedBox(height: 12),
+              Row(
+                children: [
+                  Expanded(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            children: [
+                              SocialIcons(
+                                iconData: FontAwesomeIcons.facebook,
+                                color: Colors.black,
+                                callback: () {
+                                  launchUrl(
+                                    Uri.parse(
+                                        "https://www.facebook.com/ZeroWasteCircularSolutions/"),
+                                    mode: LaunchMode.externalApplication,
+                                  );
+                                },
+                              ),
+                              SizedBox(height: 4),
+                              Text(
+                                "Facebook",
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 12),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: Column(
+                            children: [
+                              SocialIcons(
+                                iconData: FontAwesomeIcons.linkedin,
+                                color: Colors.black,
+                                callback: () {
+                                  launchUrl(
+                                    Uri.parse(
+                                        "https://www.linkedin.com/company/zwc-solutions/"),
+                                    mode: LaunchMode.externalApplication,
+                                  );
+                                },
+                              ),
+                              SizedBox(height: 4),
+                              Text(
+                                "LinkedIn",
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 12),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: Column(
+                            children: [
+                              SocialIcons(
+                                iconData: FontAwesomeIcons.instagram,
+                                color: Colors.black,
+                                callback: () {
+                                  launchUrl(
+                                      Uri.parse(
+                                          "https://www.instagram.com/zwcsolutions/"),
+                                      mode: LaunchMode.externalApplication);
+                                },
+                              ),
+                              SizedBox(height: 4),
+                              Text(
+                                "Instagram",
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 12),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: Column(
+                            children: [
+                              SocialIcons(
+                                iconData: FontAwesomeIcons.twitter,
+                                color: Colors.black,
+                                callback: () {
+                                  launchUrl(
+                                      Uri.parse(
+                                          "https://twitter.com/ZWCSolutions"),
+                                      mode: LaunchMode.externalApplication);
+                                },
+                              ),
+                              SizedBox(height: 4),
+                              Text(
+                                "Twitter",
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 12),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: Column(
+                            children: [
+                              SocialIcons(
+                                iconData: FontAwesomeIcons.youtube,
+                                color: Colors.black,
+                                callback: () {
+                                  launchUrl(
+                                      Uri.parse(
+                                          "https://www.youtube.com/@ZeroWasteSolution"),
+                                      mode: LaunchMode.externalApplication);
+                                },
+                              ),
+                              SizedBox(height: 4),
+                              Text(
+                                "Youtube",
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 12),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              Divider(),
               SizedBox(height: 8)
             ],
           ),
