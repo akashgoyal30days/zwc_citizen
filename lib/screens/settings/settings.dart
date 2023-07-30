@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -6,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:zwc/controllers/settings_controller.dart';
+import 'package:zwc/model/userassingedbranchmodel.dart';
 import 'package:zwc/screens/settings/change_password.dart';
 import 'package:zwc/screens/settings/user_bank.dart';
 import 'package:zwc/screens/settings/user_location.dart';
@@ -24,10 +27,18 @@ class SettingsScreenNew extends StatefulWidget {
 
 class _SettingsScreenNewState extends State<SettingsScreenNew> {
   bool showPictureLoading = false;
+  UserbranchassingeddataModel? userbranchdetails;
   @override
   void initState() {
+    setbranchdata();
     Get.put(SettingsController());
     super.initState();
+  }
+
+  setbranchdata() {
+    userbranchdetails = UserbranchassingeddataModel.fromJson(
+        SharedPreferenceFunctions.getuserbranchdata());
+    log(userbranchdetails!.id.toString());
   }
 
   @override
@@ -128,9 +139,106 @@ class _SettingsScreenNewState extends State<SettingsScreenNew> {
                         iconData: Icons.key,
                         title: "Password",
                         message: "Update your password",
-                        showDivider: false,
+                        showDivider: true,
                         onTap: () => Get.to(() => ChangePassword()),
                       ),
+                      if (userbranchdetails!.id != null)
+                        Container(
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.headphones,
+                                    size: 18,
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    "Contact Branch",
+                                    style: GoogleFonts.montserrat(
+                                        color: Colors.black,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.business_sharp,
+                                    color: Colors.grey.shade600,
+                                    size: 18,
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    userbranchdetails!.branchName.toString(),
+                                    style: GoogleFonts.montserrat(
+                                      color: Colors.grey.shade600,
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 30, vertical: 10),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Column(
+                                      children: [
+                                        SocialIcons(
+                                          iconData: FontAwesomeIcons.phone,
+                                          color: Colors.black,
+                                          callback: () {
+                                            launchUrl(Uri.parse(
+                                                "tel:+91${userbranchdetails!.branchContact.toString()}"));
+                                          },
+                                        ),
+                                        SizedBox(height: 4),
+                                        Text(
+                                          "Call",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 12),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    Column(
+                                      children: [
+                                        SocialIcons(
+                                          iconData: FontAwesomeIcons.envelope,
+                                          color: Colors.black,
+                                          callback: () {
+                                            launchUrl(Uri.parse(
+                                                "mailto:${userbranchdetails!.branchEmail.toString()}"));
+                                          },
+                                        ),
+                                        SizedBox(height: 4),
+                                        Text(
+                                          "Email",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 12),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        )
                     ],
                   ),
                 ),

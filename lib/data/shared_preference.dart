@@ -35,6 +35,11 @@ class SharedPreferenceFunctions {
     await SharedPreferenceSingleTon.setData("userProfile", json.encode(data));
   }
 
+  static setbranchdetails(data) async {
+    await SharedPreferenceSingleTon.setData(
+        "userbranchdetails", json.encode(data));
+  }
+
   static clearUserData() async =>
       await SharedPreferenceSingleTon.setData("userProfile", "");
 
@@ -50,5 +55,13 @@ class SharedPreferenceFunctions {
     decodedData ??=
         json.decode(SharedPreferenceSingleTon.getData("userProfile")!);
     return decodedData!;
+  }
+
+  static Map<String, dynamic> getuserbranchdata() {
+    if (SharedPreferenceSingleTon.getData("userbranchdetails") == null)
+      return {};
+    var data =
+        json.decode(SharedPreferenceSingleTon.getData("userbranchdetails")!);
+    return data!;
   }
 }

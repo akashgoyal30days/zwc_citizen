@@ -1,8 +1,8 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:zwc/data/shared_preference.dart';
+import 'package:zwc/model/userassingedbranchmodel.dart';
 
 import '../api/api_client.dart';
 import '../api/urls.dart';
@@ -12,6 +12,7 @@ import '../screens/auth/login.dart';
 class LogInSuccessController extends GetxController {
   LogInSuccessController();
 
+  UserbranchassingeddataModel? userbranchassigneData;
   getUserProfile([bool? shouldGotoDashboard]) async {
     var response = await APIClient.post(URLS.getUserDetails);
 
@@ -25,11 +26,13 @@ class LogInSuccessController extends GetxController {
       return;
     }
 
-    var body = (json.decode(response.body) ?? {})["data"];
+    var body = json.decode(response.body)["data"];
 
     await SharedPreferenceFunctions.clearUserData();
     await SharedPreferenceFunctions.setUserData(body);
-    log(body.toString());
+    await SharedPreferenceFunctions.setbranchdetails(
+        body["branch_assigned"][0]);
+
     if (shouldGotoDashboard == true) {
       Get.offAllNamed(
         body["is_address_ent"] == "1"
