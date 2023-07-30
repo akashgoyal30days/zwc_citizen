@@ -37,9 +37,9 @@ class _UpdateBankDetailsScreenState extends State<UpdateBankDetailsScreen> {
           backgroundColor: Colors.red));
       return;
     }
-    showError = accountNumberController.text.isEmpty ||
-        ifscController.text.isEmpty ||
-        UPIIdController.text.isEmpty;
+    showError =
+        accountNumberController.text.isEmpty || ifscController.text.isEmpty;
+    // || UPIIdController.text.isEmpty;
     setState(() {});
     if (showError) return;
     setState(() {
@@ -99,7 +99,7 @@ class _UpdateBankDetailsScreenState extends State<UpdateBankDetailsScreen> {
                   children: [
                     if (showError)
                       Text(
-                        "All fields are required",
+                        "Account No and Ifsc code is required",
                         style: TextStyle(color: Colors.red),
                       ),
                     SizedBox(height: 6),

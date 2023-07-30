@@ -1,7 +1,11 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:google_fonts/google_fonts.dart';
+import 'package:in_app_update/in_app_update.dart';
 import 'package:intl/intl.dart';
 import 'package:zwc/controllers/dashboard_controller.dart';
 
@@ -23,8 +27,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
   void initState() {
     var controller = Get.find<DashboardController>();
     if (controller.wasteCollected.isEmpty) controller.getDashboard(dateRange);
+
     super.initState();
   }
+
+ 
 
   @override
   Widget build(BuildContext context) {
