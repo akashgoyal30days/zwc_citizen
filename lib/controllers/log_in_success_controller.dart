@@ -29,7 +29,7 @@ class LogInSuccessController extends GetxController {
 
     await SharedPreferenceFunctions.clearUserData();
     await SharedPreferenceFunctions.setUserData(body);
-    log(body["is_address_ent"].toString());
+    log(body.toString());
     if (shouldGotoDashboard == true) {
       Get.offAllNamed(
         body["is_address_ent"] == "1"
