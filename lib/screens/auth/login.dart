@@ -47,7 +47,6 @@ class _LoginScreenState extends State<LoginScreen> {
           const Positioned.fill(
             child: BackgroundGradient(),
           ),
-          
           SafeArea(
             child: SingleChildScrollView(
               child: SizedBox(

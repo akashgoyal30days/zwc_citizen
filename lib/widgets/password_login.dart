@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:zwc/screens/auth/forgotpasswordscreen.dart';
 
 import '../controllers/login_ctrl.dart';
 import '../routes.dart';
@@ -82,6 +83,12 @@ class _PasswordLoginState extends State<PasswordLogin> {
                           onPressed: widget.changetoOTP,
                           child: const Text("Instead login with OTP"),
                         ),
+                        // TextButton(
+                        //   onPressed: () {
+                        //     Get.to(Forgotpassword());
+                        //   },
+                        //   child: const Text("Forgot Password?"),
+                        // ),
                         TextButton(
                           style: ButtonStyle(
                             backgroundColor:
