@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "8263821063",
+    "project_id": "zwc-citizen",
+    "storage_bucket": "zwc-citizen.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:8263821063:android:5a730b3fc2509ac48a47a2",
+        "android_client_info": {
+          "package_name": "com.zerowaste.citizen.zwc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "8263821063-0dhfgoq37i2o6iphqa9ojrp7favpcr98.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.zerowaste.citizen.zwc",
+            "certificate_hash": "06ec171b5b599044ae29957ec33e063850fe001d"
+          }
+        },
+        {
+          "client_id": "8263821063-v4ut56ekq1nild9enb04g7gt83dvpj4v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.zerowaste.citizen.zwc",
+            "certificate_hash": "d49d5c5e8800935ea44f0271bdbdbcf1feb45427"
+          }
+        },
+        {
+          "client_id": "8263821063-131j3v8863berkrqen14vptpr4a0hbi2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAm5xg_yuqVUTifYO6AHJBRX1Upz_79xIY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "8263821063-131j3v8863berkrqen14vptpr4a0hbi2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
