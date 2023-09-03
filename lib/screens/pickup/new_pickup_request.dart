@@ -1,5 +1,9 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_image/flutter_native_image.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
@@ -21,6 +25,7 @@ class _NewPickupRequestState extends State<NewPickupRequest> {
 
   String selectedFilePath = "", selectedFileName = "";
   bool showLoading = false;
+  String filesize = "";
 
   @override
   void initState() {
@@ -52,6 +57,8 @@ class _NewPickupRequestState extends State<NewPickupRequest> {
     setState(() {});
   }
 
+  File? compressedFile;
+
   captureImage(bool isCamera) async {
     var result = await ImagePicker().pickImage(
         source: isCamera ? ImageSource.camera : ImageSource.gallery,
@@ -59,7 +66,21 @@ class _NewPickupRequestState extends State<NewPickupRequest> {
     if (result == null) return;
     selectedFileName = result.name;
     selectedFilePath = result.path;
-    setState(() {});
+    log("Orignal Image Length : " +
+        (File(selectedFilePath).readAsBytesSync().lengthInBytes / 1024)
+            .toString() +
+        " KB");
+    compressedFile = await FlutterNativeImage.compressImage(result.path,
+        quality: 50, percentage: 100);
+    // log("Final Image Length : " +
+    //     (compressedFile!.readAsBytesSync().lengthInBytes / 1024).toString() +
+    //     " KB");
+    setState(() {
+      filesize = (compressedFile!.readAsBytesSync().lengthInBytes / 1024)
+              .toStringAsFixed(2) +
+          " Kb";
+      log(filesize.toString());
+    });
   }
 
   submit() async {
@@ -199,9 +220,23 @@ class _NewPickupRequestState extends State<NewPickupRequest> {
                   Row(
                     children: [
                       Expanded(
-                          child: Text(
-                        selectedFileName,
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                          child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            selectedFileName,
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            height: 2,
+                          ),
+                          Text(
+                            filesize,
+                            style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                color: Colors.grey),
+                          ),
+                        ],
                       )),
                       SizedBox(width: 16),
                       Expanded(

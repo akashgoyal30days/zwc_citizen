@@ -28,7 +28,7 @@ class _UpdateBankDetailsScreenState extends State<UpdateBankDetailsScreen> {
   }
 
   submit() async {
-    if (ifscController.text.length != 11) {
+    if (ifscController.text.isNotEmpty && ifscController.text.length != 11) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(
             "IFSC Code should be 11 characters",
@@ -38,8 +38,8 @@ class _UpdateBankDetailsScreenState extends State<UpdateBankDetailsScreen> {
       return;
     }
     showError =
-        accountNumberController.text.isEmpty || ifscController.text.isEmpty;
-    // || UPIIdController.text.isEmpty;
+        // accountNumberController.text.isEmpty || ifscController.text.isEmpty;
+        UPIIdController.text.isEmpty;
     setState(() {});
     if (showError) return;
     setState(() {
@@ -99,7 +99,7 @@ class _UpdateBankDetailsScreenState extends State<UpdateBankDetailsScreen> {
                   children: [
                     if (showError)
                       Text(
-                        "Account No and Ifsc code is required",
+                        "UPI ID is Required",
                         style: TextStyle(color: Colors.red),
                       ),
                     SizedBox(height: 6),
@@ -107,6 +107,7 @@ class _UpdateBankDetailsScreenState extends State<UpdateBankDetailsScreen> {
                       onTap: submit,
                       child: Container(
                         height: 50,
+                        
                         alignment: Alignment.center,
                         color: Colors.green,
                         child: Text(
