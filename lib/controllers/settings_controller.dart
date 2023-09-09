@@ -178,9 +178,6 @@ class SettingsController extends GetxController {
       },
     );
     if (response.statusCode != 200) {
-      print(response.body);
-      print(response.statusCode);
-      print(response.reasonPhrase);
       Get.showSnackbar(GetSnackBar(
         duration: Duration(seconds: 5),
         backgroundColor: Colors.red,

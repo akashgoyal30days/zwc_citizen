@@ -51,6 +51,9 @@ class _UpdateBankDetailsScreenState extends State<UpdateBankDetailsScreen> {
       "upi_id": UPIIdController.text,
     }));
     Get.back();
+    setState(() {
+      showLoading = false;
+    });
   }
 
   @override
@@ -107,7 +110,6 @@ class _UpdateBankDetailsScreenState extends State<UpdateBankDetailsScreen> {
                       onTap: submit,
                       child: Container(
                         height: 50,
-                        
                         alignment: Alignment.center,
                         color: Colors.green,
                         child: Text(

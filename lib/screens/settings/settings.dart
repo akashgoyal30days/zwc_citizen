@@ -38,7 +38,6 @@ class _SettingsScreenNewState extends State<SettingsScreenNew> {
   setbranchdata() {
     userbranchdetails = UserbranchassingeddataModel.fromJson(
         SharedPreferenceFunctions.getuserbranchdata());
-    log(userbranchdetails!.id.toString());
   }
 
   @override
