@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,6 +8,7 @@ import 'package:shimmer/shimmer.dart';
 import 'package:zwc/api/api_client.dart';
 import 'package:zwc/api/urls.dart';
 import 'package:zwc/controllers/rewards_controller.dart.dart';
+import 'package:zwc/controllers/settings_controller.dart';
 import 'package:zwc/screens/rewards/redeemhistiry.dart';
 import 'package:zwc/widgets/transaction_widget.dart';
 
@@ -27,6 +27,7 @@ class _RewardsScreenState extends State<RewardsScreen> {
     end: DateTime(2023, DateTime.now().month, DateTime.now().day + 1),
   );
   final reedempointscontroller = TextEditingController();
+  final SettingsController settyingcontroller = Get.put(SettingsController());
 
   @override
   void initState() {
@@ -89,30 +90,46 @@ class _RewardsScreenState extends State<RewardsScreen> {
                       ),
                       onPressed: () {
                         Navigator.pop(context);
-                        makeredeemrequest(
-                                reedempointscontroller.text.toString())
-                            .then((value) => {
-                                  if (value?.status.toString() == "true")
-                                    {
-                                      Get.showSnackbar(const GetSnackBar(
-                                        duration: Duration(seconds: 3),
-                                        backgroundColor: Colors.blue,
-                                        title: "Redeem Points",
-                                        message: "Request Sent Successfully",
-                                      )),
-                                      Get.delete<RewardsController>(),
-                                      Get.to(RewardsScreen())
-                                    }
-                                  else
-                                    {
-                                      Get.showSnackbar(GetSnackBar(
-                                        duration: Duration(seconds: 3),
-                                        backgroundColor: Colors.red,
-                                        title: "Redeem Points",
-                                        message: value?.message,
-                                      ))
-                                    }
-                                });
+                        if ((settyingcontroller.selectedBank!.accountNumber
+                                        .toString() !=
+                                    "" &&
+                                settyingcontroller.selectedBank!.ifscCode
+                                        .toString() !=
+                                    "") ||
+                            settyingcontroller.selectedBank!.upiID.toString() !=
+                                "") {
+                          makeredeemrequest(
+                                  reedempointscontroller.text.toString())
+                              .then((value) => {
+                                    if (value?.status.toString() == "true")
+                                      {
+                                        Get.showSnackbar(const GetSnackBar(
+                                          duration: Duration(seconds: 3),
+                                          backgroundColor: Colors.blue,
+                                          title: "Redeem Points",
+                                          message: "Request Sent Successfully",
+                                        )),
+                                        Get.delete<RewardsController>(),
+                                        Get.to(RewardsScreen())
+                                      }
+                                    else
+                                      {
+                                        Get.showSnackbar(GetSnackBar(
+                                          duration: Duration(seconds: 3),
+                                          backgroundColor: Colors.red,
+                                          title: "Redeem Points",
+                                          message: value?.message,
+                                        ))
+                                      }
+                                  });
+                        } else {
+                          Get.showSnackbar(GetSnackBar(
+                              duration: Duration(seconds: 3),
+                              backgroundColor: Colors.red,
+                              title: "Redeem Points",
+                              message:
+                                  "Please fill the account details in Settings"));
+                        }
                       },
                       child: const Text("Redeem Now"),
                     ),
