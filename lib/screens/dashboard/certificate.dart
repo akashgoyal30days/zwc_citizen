@@ -33,7 +33,8 @@ class _CertificateScreenState extends State<CertificateScreen> {
     await file.writeAsBytes(widget.model.ImageBytes);
     Share.shareFiles(
       [filePath],
-      text: r"Hey, I just earned this certificate for my contributions to the environment with Zero waste citizen app. Check out what I did to make a difference! Download the app here: https://play.google.com/store/apps/details?id=com.fctech.customer&hl=en_ZA&gl=US. Let's all do our part to make the world a better place.",
+      text:
+          r"Hey, I just earned this certificate for my contributions to the environment with Zero waste citizen app. Check out what I did to make a difference! Download the app here: https://play.google.com/store/apps/details?id=com.fctech.customer&hl=en_ZA&gl=US. Let's all do our part to make the world a better place.",
     );
   }
 

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:zwc/screens/auth/forgotpasswordscreen.dart';
 
 import '../controllers/login_ctrl.dart';
 import '../routes.dart';

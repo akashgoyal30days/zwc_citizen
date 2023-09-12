@@ -40,7 +40,6 @@ class _DepositsScreenState extends State<DepositsScreen> {
             IconButton(
               icon: const Icon(Icons.calendar_month),
               onPressed: () async {
-                var now = DateTime.now();
                 var dates = await showDateRangePicker(
                   context: context,
                   firstDate: DateTime(2010),
