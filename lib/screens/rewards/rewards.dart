@@ -9,7 +9,9 @@ import 'package:zwc/api/api_client.dart';
 import 'package:zwc/api/urls.dart';
 import 'package:zwc/controllers/rewards_controller.dart.dart';
 import 'package:zwc/controllers/settings_controller.dart';
+import 'package:zwc/model/locaiton_models.dart';
 import 'package:zwc/screens/rewards/redeemhistiry.dart';
+import 'package:zwc/screens/settings/update_user_bank.dart';
 import 'package:zwc/widgets/transaction_widget.dart';
 
 import 'deposits.dart';
@@ -42,6 +44,48 @@ class _RewardsScreenState extends State<RewardsScreen> {
     var body = json.decode(response.body);
     reedemrequestresponse = await ReedemRequestmodel.fromJson(body);
     return reedemrequestresponse;
+  }
+
+  bankdetailspopup(
+    BuildContext context,
+  ) {
+    showModalBottomSheet(
+        isScrollControlled: false,
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+            height: 200,
+            padding: EdgeInsets.all(16.0),
+            child: Padding(
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).viewInsets.bottom),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(
+                        "Add your bank details to send the redeem request",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.grey.shade400,
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
+                    ),
+                    Center(
+                      child: ElevatedButton.icon(
+                        onPressed: () {
+                          Get.to(() =>
+                              UpdateBankDetailsScreen(BankModel(data: {})));
+                        },
+                        icon: Icon(Icons.add),
+                        label: Text("Add Bank Details"),
+                      ),
+                    ),
+                  ],
+                )),
+          );
+        });
   }
 
   redeempointspopup(
@@ -90,14 +134,17 @@ class _RewardsScreenState extends State<RewardsScreen> {
                       ),
                       onPressed: () {
                         Navigator.pop(context);
-                        if ((settyingcontroller.selectedBank!.accountNumber
-                                        .toString() !=
-                                    "" &&
-                                settyingcontroller.selectedBank!.ifscCode
-                                        .toString() !=
-                                    "") ||
-                            settyingcontroller.selectedBank!.upiID.toString() !=
-                                "") {
+                        if (
+
+                            // (settyingcontroller.selectedBank!.accountNumber
+                            //               .toString() !=
+                            //           "" &&
+                            //       settyingcontroller.selectedBank!.ifscCode
+                            //               .toString() !=
+                            //           "") ||
+                            // settyingcontroller.selectedBank!.upiID.toString() !=
+                            //     ""
+                            settyingcontroller.selectedBank != null) {
                           makeredeemrequest(
                                   reedempointscontroller.text.toString())
                               .then((value) => {
@@ -123,12 +170,13 @@ class _RewardsScreenState extends State<RewardsScreen> {
                                       }
                                   });
                         } else {
-                          Get.showSnackbar(GetSnackBar(
-                              duration: Duration(seconds: 3),
-                              backgroundColor: Colors.red,
-                              title: "Redeem Points",
-                              message:
-                                  "Please fill the account details in Settings"));
+                          bankdetailspopup(context);
+                          // Get.showSnackbar(GetSnackBar(
+                          //     duration: Duration(seconds: 3),
+                          //     backgroundColor: Colors.red,
+                          //     title: "Redeem Points",
+                          //     message:
+                          //         "Please fill the account details in Settings"));
                         }
                       },
                       child: const Text("Redeem Now"),

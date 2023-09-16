@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:zwc/data/shared_preference.dart';
@@ -27,6 +28,7 @@ class LogInSuccessController extends GetxController {
     }
 
     var body = json.decode(response.body)["data"];
+    log(body.toString());
 
     await SharedPreferenceFunctions.clearUserData();
     await SharedPreferenceFunctions.setUserData(body);

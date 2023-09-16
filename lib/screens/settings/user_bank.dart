@@ -23,7 +23,8 @@ class _UserBankDetailsState extends State<UserBankDetails> {
           foregroundColor: Colors.green,
         ),
         body: controller.selectedBank == null
-            ? Column(
+            ? 
+            Column(
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(16.0),

@@ -38,7 +38,7 @@ class BranchModel {
 }
 
 class BankModel {
-  String id, userDetailID, accountNumber, ifscCode, upiID;
+  String id , userDetailID, accountNumber, ifscCode, upiID;
   BankModel({data = const {}})
       : id = data["id"]?.toString() ?? "",
         userDetailID = data["user_detail_id"]?.toString() ?? "",

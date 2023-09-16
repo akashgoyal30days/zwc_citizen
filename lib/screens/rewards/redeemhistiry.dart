@@ -29,7 +29,7 @@ class _DepositsScreenState extends State<ReedemhistoryScreen> {
         backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text(
-            "Reedem History",
+            "Redeem History",
             style: GoogleFonts.montserrat(
               color: Colors.white,
               fontWeight: FontWeight.bold,

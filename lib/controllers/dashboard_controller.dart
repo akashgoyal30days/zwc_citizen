@@ -6,7 +6,7 @@ import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'package:zwc/api/api_client.dart';
 import 'package:zwc/api/urls.dart';
-
+import 'dart:developer';
 import '../model/certificate_model.dart';
 
 class DashboardController extends GetxController {
@@ -98,6 +98,8 @@ class DashboardController extends GetxController {
         throw "";
       }
       var body = json.decode(response.body);
+      log(body.toString());
+
       var imageResponse = await get(Uri.parse(body["data"]["image"]));
       if (imageResponse.statusCode != 200) throw "";
       certificateLoading = false;
