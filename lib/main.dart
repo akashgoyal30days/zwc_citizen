@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zwc/routes.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -125,6 +126,8 @@ class _MainState extends State<Main> {
         token = token;
         log("Firebase token : " + token.toString());
       });
+      var pref = await SharedPreferences.getInstance();
+      await pref.setString("fcm_token", token.toString());
     } catch (error) {
       log(error.toString());
     }

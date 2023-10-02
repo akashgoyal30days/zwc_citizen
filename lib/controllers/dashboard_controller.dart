@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zwc/api/api_client.dart';
 import 'package:zwc/api/urls.dart';
 import 'dart:developer';
@@ -86,6 +87,26 @@ class DashboardController extends GetxController {
     showLoading = false;
     lastUpdatedOn = DateTime.now();
     update();
+  }
+
+  updatefcmtoken() async {
+    var pref = await SharedPreferences.getInstance();
+
+    var fcmtoken = pref.getString("fcm_token");
+    log(fcmtoken.toString());
+
+    try {
+      var response = await APIClient.post(URLS.updatefcmtoken,
+          body: {"token": fcmtoken.toString()});
+      log("fcm " + response.statusCode.toString());
+      if (response.statusCode != 200) {
+        throw "";
+      }
+      var body = json.decode(response.body);
+      log("fcm " + body.toString());
+    } catch (e) {
+      update();
+    }
   }
 
   getCertificate() async {

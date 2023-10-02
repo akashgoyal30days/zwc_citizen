@@ -23,6 +23,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   void initState() {
     var controller = Get.find<DashboardController>();
     if (controller.wasteCollected.isEmpty) controller.getDashboard(dateRange);
+    controller.updatefcmtoken();
 
     super.initState();
   }
