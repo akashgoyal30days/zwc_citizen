@@ -93,11 +93,12 @@ class DashboardController extends GetxController {
     var pref = await SharedPreferences.getInstance();
 
     var fcmtoken = pref.getString("fcm_token");
-    log(fcmtoken.toString());
 
     try {
       var response = await APIClient.post(URLS.updatefcmtoken,
           body: {"token": fcmtoken.toString()});
+      log(fcmtoken.toString());
+
       log("fcm " + response.statusCode.toString());
       if (response.statusCode != 200) {
         throw "";

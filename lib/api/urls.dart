@@ -51,5 +51,5 @@ class URLS {
   static const updateBank = "public/userDetail/update_user_bank_details";
   static const makereedemrequest = "public/userPassbook/make_redeem_request",
       getallreedemhistory = "public/userPassbook/my_redeem_requests";
-  static const updatefcmtoken = "userDetail/update_token";
+  static const updatefcmtoken = "public/userDetail/update_token";
 }
