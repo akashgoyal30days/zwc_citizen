@@ -46,6 +46,8 @@ class URLS {
 
   //dashboard
   static const getDashboard = "public/dashboard";
+    static const getratelist = "public/dashboard/rateList";
+
 
   //bank details
   static const updateBank = "public/userDetail/update_user_bank_details";

@@ -6,12 +6,14 @@ import 'package:http/http.dart' as http;
 
 import 'package:zwc/api/api_client.dart';
 import 'package:zwc/api/urls.dart';
+import 'package:zwc/model/userassingedbranchmodel.dart';
 
 import '../app_constants.dart';
 import '../data/shared_preference.dart';
 
 class PickupController extends GetxController {
   bool loadingHistory = false;
+  var showLoading = true.obs;
   String errorText = "", newRequestErrorText = "";
 
   final List<PickRequestModel> pendingRequests = [],
@@ -55,6 +57,32 @@ class PickupController extends GetxController {
     }
     loadingHistory = false;
     update();
+  }
+
+  UserbranchassingeddataModel? userbranchdetails;
+  List<dynamic> getratelistdata = [];
+
+  getratelist() async {
+    userbranchdetails = UserbranchassingeddataModel.fromJson(
+        SharedPreferenceFunctions.getuserbranchdata());
+
+    showLoading(true);
+    update();
+    var response = await APIClient.post(URLS.getratelist,
+        body: {"branch": userbranchdetails!.bankBranchId.toString()});
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body.toString());
+      Map data1 = data["data"] as Map;
+      data1.forEach((key, value) {
+        if (key.toString() != "branch") {
+          Map valuedata = value as Map;
+          getratelistdata.add(valuedata);
+        }
+      });
+      showLoading(false);
+      update();
+    }
   }
 
   Future<bool> newRequest(String weight, String time, String from, String to,

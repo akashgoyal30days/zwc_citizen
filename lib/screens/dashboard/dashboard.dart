@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:zwc/controllers/dashboard_controller.dart';
+import 'package:zwc/screens/ratelistscreen.dart';
 
 import '../../widgets/environment_saved.dart';
 import '../../widgets/statistics.dart';
@@ -24,7 +25,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
     var controller = Get.find<DashboardController>();
     if (controller.wasteCollected.isEmpty) controller.getDashboard(dateRange);
     controller.updatefcmtoken();
-
     super.initState();
   }
 
@@ -88,7 +88,38 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         environmentSavingLifetime:
                             controller.environmentSavedLifetime,
                       ),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 10),
+                      InkWell(
+                        onTap: () {
+                          Get.to(ratelistscreen());
+                        },
+                        child: Card(
+                          elevation: 10,
+                          margin: const EdgeInsets.symmetric(horizontal: 12),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16),
+                            child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Product Rate List",
+                                    style: GoogleFonts.montserrat(
+                                      color: Colors.green,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                  Icon(
+                                    Icons.arrow_forward_ios_rounded,
+                                    color: Colors.grey.shade400,
+                                    size: 18,
+                                  )
+                                ]),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
                       Statistics(dateRange: dateRange),
                       if (controller.lastUpdatedOn != null)
                         Row(
