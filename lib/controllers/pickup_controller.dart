@@ -63,6 +63,7 @@ class PickupController extends GetxController {
   List<dynamic> getratelistdata = [];
 
   getratelist() async {
+    getratelistdata.clear();
     userbranchdetails = UserbranchassingeddataModel.fromJson(
         SharedPreferenceFunctions.getuserbranchdata());
 
