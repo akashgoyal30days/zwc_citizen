@@ -61,71 +61,9 @@ class _StatisticsState extends State<ratelistscreen> {
                       fontSize: 18,
                     ),
                   ),
-                  // Padding(
-                  //   padding: const EdgeInsets.all(8.0),
-                  //   child: Row(
-                  //     children: [
-                  //       Expanded(
-                  //         child: Text(
-                  //           "Product Name",
-                  //           style: TextStyle(
-                  //               color: Colors.black,
-                  //               fontSize: 18,
-                  //               fontWeight: FontWeight.w500),
-                  //         ),
-                  //       ),
-                  //       Text(
-                  //         "Purchase Price",
-                  //         style: TextStyle(
-                  //             color: Colors.black,
-                  //             fontSize: 18,
-                  //             fontWeight: FontWeight.w500),
-                  //       )
-                  //     ],
-                  //   ),
-                  // ),
                   SizedBox(
                     height: 10,
                   ),
-                  // Expanded(
-                  //   child: ListView.builder(
-                  //     itemCount: pickupcontroller.getratelistdata.length,
-                  //     itemBuilder: (BuildContext context, int index) {
-                  //       return Container(
-                  //         decoration: BoxDecoration(
-                  //             border: Border.all(color: Colors.grey.shade200)),
-                  //         child: Padding(
-                  //           padding: const EdgeInsets.all(8.0),
-                  //           child: Row(
-                  //             children: [
-                  //               Expanded(
-                  //                 child: Text(
-                  //                   pickupcontroller.getratelistdata[index]
-                  //                       ["product_name"],
-                  //                   style: TextStyle(
-                  //                     fontSize: 16,
-                  //                     color: Colors.black,
-                  //                   ),
-                  //                 ),
-                  //               ),
-                  //               Text(
-                  //                 pickupcontroller.getratelistdata[index]
-                  //                     ["purchase_price"],
-                  //                 style: TextStyle(
-                  //                     color: Colors.black,
-                  //                     fontSize: 16,
-                  //                     fontWeight: FontWeight.bold),
-                  //               ),
-                  //               Text(" / "),
-                  //               Text(pickupcontroller.getratelistdata[index]
-                  //                   ["unit"])
-                  //             ],
-                  //           ),
-                  //         ),
-                  //       );
-                  //     },
-                  //   ),
-                  // ),
                   Expanded(
                     child: ListView.builder(
                       itemCount: pickupcontroller.getratelistdata.length,
@@ -189,9 +127,9 @@ class _StatisticsState extends State<ratelistscreen> {
                                             Text(
                                               "Purchase Price : ",
                                               style: TextStyle(
-                                                  color: Colors.grey,
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.bold),
+                                                color: Colors.grey,
+                                                fontSize: 16,
+                                              ),
                                             ),
                                             Text(
                                               "₹",
