@@ -39,8 +39,8 @@ class _EnvironmentSavedWidgetState extends State<EnvironmentSavedWidget> {
             Text(
               "Environmental Saving",
               style: GoogleFonts.montserrat(
-                color: Colors.green,
                 fontWeight: FontWeight.bold,
+                color: Colors.green,
                 fontSize: 18,
               ),
             ),
