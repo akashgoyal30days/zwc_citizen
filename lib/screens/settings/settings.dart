@@ -459,7 +459,7 @@ class ConnectWithUS extends StatelessWidget {
                           backgroundColor:
                               MaterialStateProperty.all(Colors.green.shade50)),
                       label: FittedBox(child: Text("Chat with us")),
-                      icon: Icon(Icons.whatsapp),
+                      icon: Icon(Icons.wechat),
                     ),
                   ),
                 ],
