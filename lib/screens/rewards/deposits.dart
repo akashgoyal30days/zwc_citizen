@@ -43,7 +43,7 @@ class _DepositsScreenState extends State<DepositsScreen> {
                 var dates = await showDateRangePicker(
                   context: context,
                   firstDate: DateTime(2010),
-                  lastDate: DateTime.now(),
+                  lastDate: DateTime(2100),
                   initialDateRange: dateRange,
                 );
                 if (dates == null) return;
