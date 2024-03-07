@@ -46,12 +46,14 @@ class URLS {
 
   //dashboard
   static const getDashboard = "public/dashboard";
-    static const getratelist = "public/dashboard/rateList";
-
+  static const getratelist = "public/dashboard/rateList";
 
   //bank details
   static const updateBank = "public/userDetail/update_user_bank_details";
   static const makereedemrequest = "public/userPassbook/make_redeem_request",
       getallreedemhistory = "public/userPassbook/my_redeem_requests";
   static const updatefcmtoken = "public/userDetail/update_token";
+  static const deleteaccount = "public/userDetail/delete_account";
+  static const confirm_delete_count =
+      "public/userDetail/confirm_delete_account";
 }

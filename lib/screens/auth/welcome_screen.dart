@@ -57,23 +57,23 @@ class WelcomeScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     const SizedBox(height: 24),
-                    // TextButton(
-                    //   style: ButtonStyle(
-                    //     foregroundColor:
-                    //         MaterialStateProperty.all(Colors.green[900]),
-                    //     backgroundColor:
-                    //         MaterialStateProperty.all(Colors.white),
-                    //     shape: MaterialStateProperty.all(
-                    //       RoundedRectangleBorder(
-                    //         borderRadius: BorderRadius.circular(6),
-                    //       ),
-                    //     ),
-                    //   ),
-                    //   onPressed: () {
-                    //     Get.toNamed(ZWCRoutes.toRegistrationScreen);
-                    //   },
-                    //   child: const Text("Sign up"),
-                    // ),
+                    TextButton(
+                      style: ButtonStyle(
+                        foregroundColor:
+                            MaterialStateProperty.all(Colors.green[900]),
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.white),
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                        ),
+                      ),
+                      onPressed: () {
+                        Get.toNamed(ZWCRoutes.toRegistrationScreen);
+                      },
+                      child: const Text("Sign up"),
+                    ),
                     TextButton(
                       style: ButtonStyle(
                         backgroundColor:

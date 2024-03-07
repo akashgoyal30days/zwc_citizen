@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -5,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:zwc/api/api_client.dart';
 import 'package:zwc/controllers/settings_controller.dart';
 import 'package:zwc/model/userassingedbranchmodel.dart';
 import 'package:zwc/screens/settings/change_password.dart';
@@ -26,6 +30,7 @@ class SettingsScreenNew extends StatefulWidget {
 class _SettingsScreenNewState extends State<SettingsScreenNew> {
   bool showPictureLoading = false;
   UserbranchassingeddataModel? userbranchdetails;
+  final TextEditingController deleteotpcontroller = TextEditingController();
   @override
   void initState() {
     setbranchdata();
@@ -36,6 +41,123 @@ class _SettingsScreenNewState extends State<SettingsScreenNew> {
   setbranchdata() {
     userbranchdetails = UserbranchassingeddataModel.fromJson(
         SharedPreferenceFunctions.getuserbranchdata());
+  }
+
+  showdeletepopup() {
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10.0),
+                topRight: Radius.circular(10.0))),
+        builder: (BuildContext context) {
+          return SingleChildScrollView(
+              child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+            child: Container(
+              padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    "Delete Your Account",
+                    style: TextStyle(
+                        color: Colors.red, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    "Please Enter OTP to confirm your account deletion process.",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.grey, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    "This Process is not reversable , Please make sure you want to delete your account permantely.",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.grey, fontWeight: FontWeight.bold),
+                  ),
+                  TextFormField(
+                    maxLength: 6,
+                    controller: deleteotpcontroller,
+                    decoration: InputDecoration(
+                        hintText: "Enter OTP here",
+                        hintStyle: TextStyle(color: Colors.grey)),
+                    keyboardType: TextInputType.number,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  InkWell(
+                    onTap: () async {
+                      if (deleteotpcontroller.text.toString().length == 6) {
+                        var response = await APIClient.post(
+                            URLS.confirm_delete_count,
+                            body: {"otp": deleteotpcontroller.text.toString()});
+                        var body = json.decode(response.body);
+                        if (body["status"].toString() == "true") {
+                          Get.showSnackbar(GetSnackBar(
+                            duration: Duration(seconds: 2),
+                            snackPosition: SnackPosition.TOP,
+                            backgroundColor: Colors.red,
+                            titleText: SizedBox(),
+                            messageText: Text(
+                              "Account Deleted",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ));
+                          await SharedPreferenceFunctions.logout();
+                          Get.offAllNamed(ZWCRoutes.toWelcomeScreen);
+                        } else {
+                          Get.showSnackbar(GetSnackBar(
+                            duration: Duration(seconds: 2),
+                            snackPosition: SnackPosition.TOP,
+                            backgroundColor: Colors.red,
+                            titleText: SizedBox(),
+                            messageText: Text(
+                              body["message"].toString(),
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ));
+                        }
+                      } else {
+                        Get.showSnackbar(GetSnackBar(
+                          duration: Duration(seconds: 2),
+                          snackPosition: SnackPosition.TOP,
+                          backgroundColor: Colors.red,
+                          titleText: SizedBox(),
+                          messageText: Text(
+                            "OTP must be 6-digit",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ));
+                      }
+                    },
+                    child: Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(5)),
+                      width: Get.width,
+                      child: Center(
+                          child: Text(
+                        "Delete",
+                        style: TextStyle(color: Colors.white),
+                      )),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ));
+        });
   }
 
   @override
@@ -269,6 +391,35 @@ class _SettingsScreenNewState extends State<SettingsScreenNew> {
                         ),
                       ),
                     ],
+                  ),
+                ),
+              ),
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: SettingsWidget(
+                    iconData: Icons.delete,
+                    title: "Delete Account",
+                    showDivider: false,
+                    color: Colors.black,
+                    onTap: () async {
+                      var response = await APIClient.post(URLS.deleteaccount);
+                      var body = json.decode(response.body);
+                      if (body["status"].toString() == "true") {
+                        Get.showSnackbar(GetSnackBar(
+                          duration: Duration(seconds: 2),
+                          snackPosition: SnackPosition.TOP,
+                          backgroundColor: Colors.green,
+                          titleText: SizedBox(),
+                          messageText: Text(
+                            body["message"].toString(),
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ));
+                        deleteotpcontroller.clear();
+                        showdeletepopup();
+                      }
+                    },
                   ),
                 ),
               ),

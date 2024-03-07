@@ -110,19 +110,19 @@ class _PasswordLoginState extends State<PasswordLogin> {
                             Expanded(child: Divider(indent: 8)),
                           ],
                         ),
-                        // TextButton(
-                        //   style: ButtonStyle(
-                        //     shape: MaterialStateProperty.all(
-                        //       RoundedRectangleBorder(
-                        //           borderRadius: BorderRadius.circular(6),
-                        //           side: const BorderSide(color: Colors.green)),
-                        //     ),
-                        //   ),
-                        //   onPressed: () {
-                        //     Get.offNamed(ZWCRoutes.toRegistrationScreen);
-                        //   },
-                        //   child: const Text("Sign up"),
-                        // ),
+                        TextButton(
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(6),
+                                  side: const BorderSide(color: Colors.green)),
+                            ),
+                          ),
+                          onPressed: () {
+                            Get.offNamed(ZWCRoutes.toRegistrationScreen);
+                          },
+                          child: const Text("Sign up"),
+                        ),
                         const SizedBox(height: 10),
                       ],
                     ),

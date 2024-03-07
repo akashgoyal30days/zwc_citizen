@@ -123,19 +123,19 @@ class _OTPLoginState extends State<OTPLogin> {
                             Expanded(child: Divider(indent: 8)),
                           ],
                         ),
-                        // TextButton(
-                        //   style: ButtonStyle(
-                        //     shape: MaterialStateProperty.all(
-                        //       RoundedRectangleBorder(
-                        //           borderRadius: BorderRadius.circular(6),
-                        //           side: const BorderSide(color: Colors.green)),
-                        //     ),
-                        //   ),
-                        //   onPressed: () {
-                        //     Get.offNamed(ZWCRoutes.toRegistrationScreen);
-                        //   },
-                        //   child: const Text("Sign up"),
-                        // ),
+                        TextButton(
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(6),
+                                  side: const BorderSide(color: Colors.green)),
+                            ),
+                          ),
+                          onPressed: () {
+                            Get.offNamed(ZWCRoutes.toRegistrationScreen);
+                          },
+                          child: const Text("Sign up"),
+                        ),
                         const SizedBox(height: 10),
                         const AgreementSentence(),
                       ],
